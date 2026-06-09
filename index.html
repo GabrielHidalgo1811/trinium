@@ -88,32 +88,31 @@
 </head>
 <body>
 
-  <!-- ===== NAV: transparent bar | left links | center isologo | right links ===== -->
-  <header class="site-header" id="siteHeader">
+  <!-- ===== NAV: Centered floating pill with isotipo center ===== -->
+  <!-- Mobile hamburger (outside pill, only on small screens) -->
+  <button class="nav__hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
 
-    <!-- LEFT side: Inicio + Método -->
-    <nav class="header-nav header-nav--left" aria-label="Nav izquierda">
-      <a href="#hero"   class="hnav__link hnav__link--active" id="hl-inicio">Inicio</a>
-      <a href="#metodo" class="hnav__link"                   id="hl-metodo">Método</a>
-    </nav>
+  <nav class="pill-nav" id="pillNav" aria-label="Navegación principal">
+    <div class="pill-nav__track" id="pillTrack">
+      <!-- Sliding orange indicator -->
+      <span class="pill-nav__bubble" id="pillBubble"></span>
 
-    <!-- CENTER: Isologo -->
-    <a href="#" class="header__brand" aria-label="Trinium">
-      <img src="Isologo.png" alt="Trinium Isologo" class="header__isologo" />
-    </a>
+      <!-- Left links -->
+      <a href="#hero"    class="pill-nav__link" id="pn-inicio" data-section="hero">Inicio</a>
+      <a href="#metodo"  class="pill-nav__link" id="pn-metodo" data-section="metodo">Método</a>
 
-    <!-- RIGHT side: Equipo + Contacto + CTA -->
-    <nav class="header-nav header-nav--right" aria-label="Nav derecha">
-      <a href="#equipo"   class="hnav__link" id="hl-equipo">Equipo</a>
-      <a href="#contacto" class="hnav__link" id="hl-contacto">Contacto</a>
-      <a href="#contacto" class="btn btn--orange hnav__cta" id="header-cta-btn">Agendar Llamada</a>
-    </nav>
+      <!-- Center: Isotipo -->
+      <a href="#" class="pill-nav__logo" aria-label="Trinium">
+        <img src="Isologo.png" alt="Trinium" class="pill-nav__logo-img" />
+      </a>
 
-    <!-- Hamburger: solo mobile -->
-    <button class="nav__hamburger" id="hamburger" aria-label="Menú">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
+      <!-- Right links -->
+      <a href="#equipo"   class="pill-nav__link" id="pn-equipo"   data-section="equipo">Equipo</a>
+      <a href="#contacto" class="pill-nav__link" id="pn-contacto" data-section="contacto">Contacto</a>
+    </div>
+  </nav>
 
   <!-- Mobile dropdown -->
   <div class="nav__mobile" id="mobileMenu">
@@ -122,7 +121,6 @@
       <li><a href="#metodo">Método</a></li>
       <li><a href="#equipo">Equipo</a></li>
       <li><a href="#contacto">Contacto</a></li>
-      <li><a href="#contacto" class="btn btn--orange">Agendar Llamada</a></li>
     </ul>
   </div>
 
@@ -132,10 +130,7 @@
     <div class="hero__glow"></div>
     <div class="hero__glow-2"></div>
     <div class="hero__inner">
-      <div class="hero__badge">
-        <span class="hero__badge-dot"></span>
-        Disponibles para nuevos proyectos
-      </div>
+
       <h1 class="hero__title">
         Llevamos tu negocio<br />al siguiente nivel con<br />
         <span class="hero__title-accent">código y automatización.</span><br />

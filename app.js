@@ -4,25 +4,105 @@
 
 'use strict';
 
-// ─── Header scroll effect ─────────────────
-const siteHeader = document.getElementById('siteHeader');
-function handleNavScroll() {
-  siteHeader.classList.toggle('scrolled', window.scrollY > 40);
+// ─── Pill Nav: sliding orange bubble ─────────────────
+const track     = document.getElementById('pillTrack');
+const bubble    = document.getElementById('pillBubble');
+const navLinks  = document.querySelectorAll('.pill-nav__link');
+
+let activeLink  = document.getElementById('pn-inicio');   // default active
+let isHovering  = false;
+
+/** Move the bubble to cover a given element */
+function moveBubbleTo(el) {
+  if (!el || !track) return;
+  const trackRect = track.getBoundingClientRect();
+  const elRect    = el.getBoundingClientRect();
+  bubble.style.left  = (elRect.left - trackRect.left) + 'px';
+  bubble.style.width = elRect.width + 'px';
+  bubble.classList.add('visible');
 }
-window.addEventListener('scroll', handleNavScroll, { passive: true });
-handleNavScroll();
+
+/** Set which link is the scroll-active one */
+function setActiveLink(el) {
+  navLinks.forEach(l => l.classList.remove('is-active'));
+  if (el) {
+    el.classList.add('is-active');
+    activeLink = el;
+  }
+  if (!isHovering) moveBubbleTo(activeLink);
+}
+
+// Initial position (defer until layout renders)
+window.addEventListener('load', () => {
+  setActiveLink(activeLink);
+  moveBubbleTo(activeLink);
+});
+
+// Hover: bubble follows mouse
+navLinks.forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    isHovering = true;
+    moveBubbleTo(link);
+    // While hovering, active link turns white; hovered turns black
+    navLinks.forEach(l => {
+      if (l === link) {
+        l.classList.add('is-active');
+      } else {
+        l.classList.remove('is-active');
+      }
+    });
+  });
+});
+
+track.addEventListener('mouseleave', () => {
+  isHovering = false;
+  // Restore bubble to scroll-active link
+  navLinks.forEach(l => l.classList.remove('is-active'));
+  activeLink.classList.add('is-active');
+  moveBubbleTo(activeLink);
+});
+
+// ─── Scroll: bubble follows active section ─────────────
+const sectionMap = {
+  'hero':     'pn-inicio',
+  'clientes': 'pn-inicio',
+  'metodo':   'pn-metodo',
+  'equipo':   'pn-equipo',
+  'contacto': 'pn-contacto',
+};
+
+const sections = document.querySelectorAll('section[id]');
+
+const sectionObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const linkId = sectionMap[entry.target.id];
+        if (linkId) {
+          const el = document.getElementById(linkId);
+          setActiveLink(el);
+        }
+      }
+    });
+  },
+  { threshold: 0.35, rootMargin: '-60px 0px -40% 0px' }
+);
+sections.forEach(s => sectionObserver.observe(s));
 
 // ─── Mobile hamburger ─────────────────────
 const hamburger  = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
-hamburger.addEventListener('click', () => {
-  mobileMenu.classList.toggle('open');
-});
+hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
 mobileMenu.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => mobileMenu.classList.remove('open'));
 });
 
-// ─── Intersection Observer: fade-in on scroll ──
+// ─── Recalculate bubble on resize ─────────
+window.addEventListener('resize', () => {
+  if (!isHovering) moveBubbleTo(activeLink);
+});
+
+// ─── Intersection Observer: fade-in on scroll ──────────
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach(entry => {
@@ -36,7 +116,6 @@ const observer = new IntersectionObserver(
   { threshold: 0.15 }
 );
 
-// Animate método steps
 document.querySelectorAll('.metodo__step').forEach((step, i) => {
   step.style.opacity    = '0';
   step.style.transform  = 'translateY(24px)';
@@ -44,7 +123,6 @@ document.querySelectorAll('.metodo__step').forEach((step, i) => {
   observer.observe(step);
 });
 
-// Animate team cards
 document.querySelectorAll('.team-card').forEach((card, i) => {
   card.style.opacity    = '0';
   card.style.transform  = 'translateY(32px)';
@@ -52,40 +130,9 @@ document.querySelectorAll('.team-card').forEach((card, i) => {
   observer.observe(card);
 });
 
-// Animate hero elements
-document.querySelectorAll('.hero__badge, .hero__title, .hero__sub, .hero__cta-row, .hero__stats').forEach((el, i) => {
+document.querySelectorAll('.hero__title, .hero__sub, .hero__cta-row, .hero__stats').forEach((el, i) => {
   el.classList.add('fade-in', `fade-in-${i + 1}`);
 });
-
-// ─── Active nav link on scroll ───────────────
-const sections  = document.querySelectorAll('section[id]');
-const navLinks  = document.querySelectorAll('.hnav__link');
-
-const sectionMap = {
-  'hero':     'hl-inicio',
-  'clientes': 'hl-inicio',
-  'metodo':   'hl-metodo',
-  'equipo':   'hl-equipo',
-  'contacto': 'hl-contacto',
-};
-
-const sectionObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const targetId = sectionMap[entry.target.id];
-        navLinks.forEach(link => {
-          link.classList.remove('hnav__link--active');
-          if (targetId && link.id === targetId) {
-            link.classList.add('hnav__link--active');
-          }
-        });
-      }
-    });
-  },
-  { threshold: 0.35 }
-);
-sections.forEach(s => sectionObserver.observe(s));
 
 // ─── Form submit ──────────────────────────
 const contactForm = document.getElementById('contactForm');
@@ -96,9 +143,9 @@ function showToast() {
   setTimeout(() => toast.classList.remove('show'), 4500);
 }
 
-function validateField(field) {
-  const ok = !!field.value.trim();
-  field.classList.toggle('error', !ok);
+function validateField(f) {
+  const ok = !!f.value.trim();
+  f.classList.toggle('error', !ok);
   return ok;
 }
 
@@ -107,14 +154,12 @@ contactForm.addEventListener('submit', (e) => {
   const nombre = document.getElementById('nombreEmpresa');
   const correo = document.getElementById('correo');
   const cuello = document.getElementById('cuelloBottella');
-
   if (!validateField(nombre) | !validateField(correo) | !validateField(cuello)) return;
 
   const btn      = document.getElementById('submitBtn');
   const original = btn.innerHTML;
   btn.innerHTML  = '<span style="display:inline-block;animation:spin 0.7s linear infinite">⟳</span> Enviando...';
   btn.disabled   = true;
-
   setTimeout(() => {
     btn.innerHTML = original;
     btn.disabled  = false;
@@ -123,11 +168,10 @@ contactForm.addEventListener('submit', (e) => {
   }, 1600);
 });
 
-document.querySelectorAll('.form__input, .form__textarea').forEach(field => {
-  field.addEventListener('input', () => field.classList.remove('error'));
+document.querySelectorAll('.form__input, .form__textarea').forEach(f => {
+  f.addEventListener('input', () => f.classList.remove('error'));
 });
 
-// ─── Spin keyframe ────────────────────────
 const spinStyle = document.createElement('style');
 spinStyle.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
 document.head.appendChild(spinStyle);
@@ -141,7 +185,7 @@ document.addEventListener('mousemove', (e) => {
   heroGlow.style.transform = `translateX(calc(-50% + ${x}px)) translateY(${y}px)`;
 });
 
-// ─── Team card 3D tilt ────────────────────
+// ─── Team card 3D tilt ─────────────────────
 document.querySelectorAll('.team-card').forEach(card => {
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
@@ -150,7 +194,5 @@ document.querySelectorAll('.team-card').forEach(card => {
     card.style.transform   = `translateY(-8px) rotateX(${y}deg) rotateY(${x}deg)`;
     card.style.perspective = '800px';
   });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
