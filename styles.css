@@ -183,15 +183,20 @@ a { text-decoration: none; color: inherit; }
 .pill-nav__link:hover         { color: var(--white); }
 .pill-nav__link.is-active     { color: #000; font-weight: 700; }
 
-/* Center: Isotipo */
+/* Center: Isotipo — breaks OUT of the pill above and below */
 .pill-nav__logo {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 0.6rem;
+  /* Width gives spacing inside the pill, but height stays at 0
+     so the pill height is set only by the text links */
+  width: 72px;
+  height: 0;
+  padding: 0 0.5rem;
   cursor: pointer;
+  overflow: visible;
 }
 .pill-nav__logo-img {
   height: 88px;
@@ -199,8 +204,13 @@ a { text-decoration: none; color: inherit; }
   filter: brightness(0) invert(1);
   transition: filter 0.4s ease, transform 0.4s ease;
   display: block;
-  position: relative;
-  z-index: 2;
+  /* Break out of the pill: absolute centered on the container */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  pointer-events: auto;
 }
 .pill-nav__logo:hover .pill-nav__logo-img {
   filter: brightness(0) invert(1)
