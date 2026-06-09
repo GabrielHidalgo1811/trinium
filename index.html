@@ -88,32 +88,44 @@
 </head>
 <body>
 
-  <!-- ===== NAV ===== -->
-  <nav class="nav" id="nav">
-    <div class="nav__inner">
-      <a href="#" class="nav__logo">
-        <img src="logo.jpg" alt="Trinium Logo" class="nav__logo-img" />
-      </a>
-      <ul class="nav__links">
-        <li><a href="#metodo">Método</a></li>
-        <li><a href="#equipo">Equipo</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-      <a href="#contacto" class="btn btn--nav">Agendar Llamada</a>
-      <button class="nav__hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <!-- Mobile menu -->
-    <div class="nav__mobile" id="mobileMenu">
-      <ul>
-        <li><a href="#metodo">Método</a></li>
-        <li><a href="#equipo">Equipo</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-        <li><a href="#contacto" class="btn btn--orange">Agendar Llamada</a></li>
-      </ul>
-    </div>
-  </nav>
+  <!-- ===== NAV: transparent bar | left links | center isologo | right links ===== -->
+  <header class="site-header" id="siteHeader">
+
+    <!-- LEFT side: Inicio + Método -->
+    <nav class="header-nav header-nav--left" aria-label="Nav izquierda">
+      <a href="#hero"   class="hnav__link hnav__link--active" id="hl-inicio">Inicio</a>
+      <a href="#metodo" class="hnav__link"                   id="hl-metodo">Método</a>
+    </nav>
+
+    <!-- CENTER: Isologo -->
+    <a href="#" class="header__brand" aria-label="Trinium">
+      <img src="Isologo.png" alt="Trinium Isologo" class="header__isologo" />
+    </a>
+
+    <!-- RIGHT side: Equipo + Contacto + CTA -->
+    <nav class="header-nav header-nav--right" aria-label="Nav derecha">
+      <a href="#equipo"   class="hnav__link" id="hl-equipo">Equipo</a>
+      <a href="#contacto" class="hnav__link" id="hl-contacto">Contacto</a>
+      <a href="#contacto" class="btn btn--orange hnav__cta" id="header-cta-btn">Agendar Llamada</a>
+    </nav>
+
+    <!-- Hamburger: solo mobile -->
+    <button class="nav__hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile dropdown -->
+  <div class="nav__mobile" id="mobileMenu">
+    <ul>
+      <li><a href="#hero">Inicio</a></li>
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#equipo">Equipo</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#contacto" class="btn btn--orange">Agendar Llamada</a></li>
+    </ul>
+  </div>
+
 
   <!-- ===== HERO ===== -->
   <section class="hero" id="hero">
