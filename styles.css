@@ -144,6 +144,7 @@ a { text-decoration: none; color: inherit; }
     0 0 60px rgba(255, 107, 0, 0.05);
   gap: 0;
   white-space: nowrap;
+  overflow: visible;
 }
 
 /* Sliding orange bubble indicator */
@@ -193,11 +194,13 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer;
 }
 .pill-nav__logo-img {
-  height: 52px;
+  height: 88px;
   width: auto;
   filter: brightness(0) invert(1);
   transition: filter 0.4s ease, transform 0.4s ease;
   display: block;
+  position: relative;
+  z-index: 2;
 }
 .pill-nav__logo:hover .pill-nav__logo-img {
   filter: brightness(0) invert(1)
