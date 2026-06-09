@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trinium | Código y Automatización sin fricción</title>
+  <meta name="description" content="Trinium construye plataformas web de alta velocidad y flujos de trabajo inteligentes que eliminan las tareas manuales para que te enfoques en escalar tu negocio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">
+        <img src="logo.jpg" alt="Trinium Logo" class="nav__logo-img" />
+      </a>
+      <ul class="nav__links">
+        <li><a href="#metodo">Método</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <a href="#contacto" class="btn btn--nav">Agendar Llamada</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div class="nav__mobile" id="mobileMenu">
+      <ul>
+        <li><a href="#metodo">Método</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#contacto" class="btn btn--orange">Agendar Llamada</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero__glow"></div>
+    <div class="hero__glow-2"></div>
+    <div class="hero__inner">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        Disponibles para nuevos proyectos
+      </div>
+      <h1 class="hero__title">
+        Llevamos tu negocio<br />al siguiente nivel con<br />
+        <span class="hero__title-accent">código y automatización.</span><br />
+        Sin rodeos.
+      </h1>
+      <p class="hero__sub">
+        Creamos plataformas web de alta velocidad y flujos de trabajo inteligentes que eliminan las tareas manuales para que te enfoques en escalar.
+      </p>
+      <div class="hero__cta-row">
+        <a href="#contacto" class="btn btn--orange btn--lg" id="hero-cta">
+          Eliminar fricción ahora <span class="btn__arrow">→</span>
+        </a>
+        <a href="#metodo" class="btn btn--ghost btn--lg">Ver el método</a>
+      </div>
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <span class="hero__stat-num">3x</span>
+          <span class="hero__stat-label">Más rápido</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">80%</span>
+          <span class="hero__stat-label">Tareas automatizadas</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">0</span>
+          <span class="hero__stat-label">Fricción</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ===== TRUSTED / SOCIAL PROOF ===== -->
+  <section class="trusted" id="clientes">
+    <p class="trusted__label">Con quienes hemos trabajado</p>
+    <div class="trusted__track-wrapper">
+      <div class="trusted__track" id="trustedTrack">
+        <!-- Logos replicated for seamless loop -->
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Shopify_logo_2018.svg/2560px-Shopify_logo_2018.svg.png" alt="Shopify" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/2560px-Amazon_logo.svg.png" alt="Amazon" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png" alt="Microsoft" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Slack_new_logo.svg/2048px-Slack_new_logo.svg.png" alt="Slack" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/1667px-Figma-logo.svg.png" alt="Figma" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Notion-logo.svg/2048px-Notion-logo.svg.png" alt="Notion" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Zoom_Communications_Logo.svg/2560px-Zoom_Communications_Logo.svg.png" alt="Zoom" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinkedIn_Logo.svg/2560px-LinkedIn_Logo.svg.png" alt="LinkedIn" />
+        </div>
+        <!-- Duplicate for seamless loop -->
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Shopify_logo_2018.svg/2560px-Shopify_logo_2018.svg.png" alt="Shopify" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/2560px-Amazon_logo.svg.png" alt="Amazon" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png" alt="Microsoft" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Slack_new_logo.svg/2048px-Slack_new_logo.svg.png" alt="Slack" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/1667px-Figma-logo.svg.png" alt="Figma" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Notion-logo.svg/2048px-Notion-logo.svg.png" alt="Notion" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Zoom_Communications_Logo.svg/2560px-Zoom_Communications_Logo.svg.png" alt="Zoom" />
+        </div>
+        <div class="trusted__logo-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinkedIn_Logo.svg/2560px-LinkedIn_Logo.svg.png" alt="LinkedIn" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MÉTODO: FRICCIÓN CERO ===== -->
+  <section class="metodo" id="metodo">
+    <div class="metodo__inner">
+      <div class="metodo__left">
+        <p class="section-label">Nuestro Método</p>
+        <h2 class="metodo__title">Fricción<br /><span class="text-orange">Cero.</span></h2>
+        <p class="metodo__desc">
+          Un proceso probado en tres pasos que transforma la complejidad operativa en sistemas que trabajan solos.
+        </p>
+        <a href="#contacto" class="btn btn--orange">Aplicar el método →</a>
+      </div>
+      <div class="metodo__right">
+        <div class="metodo__step" data-aos="fade-up">
+          <div class="metodo__step-header">
+            <span class="metodo__step-num">01</span>
+            <h3 class="metodo__step-title">Identificar el cuello de botella</h3>
+          </div>
+          <p class="metodo__step-body">
+            Analizamos tu operación actual para encontrar exactamente dónde se está trabando tu equipo o perdiendo el dinero. Sin suposiciones, solo datos.
+          </p>
+          <div class="metodo__step-bar"></div>
+        </div>
+        <div class="metodo__step" data-aos="fade-up">
+          <div class="metodo__step-header">
+            <span class="metodo__step-num">02</span>
+            <h3 class="metodo__step-title">Construir un flujo automático a tu medida</h3>
+          </div>
+          <p class="metodo__step-body">
+            Diseñamos y desarrollamos soluciones web y automatizaciones que conectan tus herramientas favoritas para que todo corra en piloto automático.
+          </p>
+          <div class="metodo__step-bar"></div>
+        </div>
+        <div class="metodo__step" data-aos="fade-up">
+          <div class="metodo__step-header">
+            <span class="metodo__step-num">03</span>
+            <h3 class="metodo__step-title">Solucionar la pérdida de horas facturables</h3>
+          </div>
+          <p class="metodo__step-body">
+            Reemplazamos las tareas repetitivas por sistemas eficientes, devolviéndole tiempo real a tu negocio para facturar más.
+          </p>
+          <div class="metodo__step-bar"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EQUIPO ===== -->
+  <section class="equipo" id="equipo">
+    <div class="equipo__inner">
+      <div class="equipo__header">
+        <p class="section-label">El Equipo</p>
+        <h2 class="equipo__title">Las caras detrás<br />del <span class="text-orange">código.</span></h2>
+        <p class="equipo__sub">Tres fundadores, una obsesión: eliminar la fricción de tu negocio.</p>
+      </div>
+      <div class="equipo__grid">
+
+        <!-- Card Daniel -->
+        <div class="team-card" id="team-daniel">
+          <div class="team-card__img-wrap">
+            <img
+              src="daniel.png"
+              alt="Daniel - Growth & Business Strategy"
+              class="team-card__img"
+            />
+            <div class="team-card__overlay"></div>
+            <div class="team-card__shine"></div>
+          </div>
+          <div class="team-card__body">
+            <div class="team-card__role-badge">Growth & Business Strategy</div>
+            <h3 class="team-card__name">Daniel</h3>
+            <p class="team-card__desc">
+              Convierte oportunidades en sistemas de crecimiento escalables. Su enfoque está en la estrategia que conecta tecnología con resultado de negocio real.
+            </p>
+            <div class="team-card__social">
+              <a href="#" class="team-card__social-link" aria-label="LinkedIn Daniel">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Jesús -->
+        <div class="team-card team-card--featured" id="team-jesus">
+          <div class="team-card__img-wrap">
+            <img
+              src="jesus.png"
+              alt="Jesús - Co-Founder & Tech Lead"
+              class="team-card__img"
+            />
+            <div class="team-card__overlay"></div>
+            <div class="team-card__shine"></div>
+          </div>
+          <div class="team-card__body">
+            <div class="team-card__role-badge team-card__role-badge--orange">Co-Founder & Tech Lead</div>
+            <h3 class="team-card__name">Jesús</h3>
+            <p class="team-card__desc">
+              Arquitecto de sistemas robustos y escalables. Diseña el backend que garantiza que tus operaciones no fallen ni cuando el negocio explote.
+            </p>
+            <div class="team-card__social">
+              <a href="#" class="team-card__social-link" aria-label="LinkedIn Jesús">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Gabriel -->
+        <div class="team-card" id="team-gabriel">
+          <div class="team-card__img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80&fit=crop&crop=faces"
+              alt="Gabriel - Co-Founder & Full-Stack Developer"
+              class="team-card__img"
+            />
+            <div class="team-card__overlay"></div>
+            <div class="team-card__shine"></div>
+          </div>
+          <div class="team-card__body">
+            <div class="team-card__role-badge">Co-Founder & Full-Stack Developer</div>
+            <h3 class="team-card__name">Gabriel</h3>
+            <p class="team-card__desc">
+              Transforma ideas complejas en interfaces limpias e intuitivas. Cada pixel tiene un propósito y cada clic lleva al usuario al siguiente paso.
+            </p>
+            <div class="team-card__social">
+              <a href="#" class="team-card__social-link" aria-label="LinkedIn Gabriel">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACTO ===== -->
+  <section class="contacto" id="contacto">
+    <div class="contacto__inner">
+      <div class="contacto__left">
+        <p class="section-label">Hablemos</p>
+        <h2 class="contacto__title">¿Listo para operar sin<br /><span class="text-orange">fricción?</span></h2>
+        <p class="contacto__desc">
+          Agenda una auditoría gratuita de 30 minutos. Te decimos exactamente dónde está tu cuello de botella y cómo lo resolveríamos.
+        </p>
+        <div class="contacto__features">
+          <div class="contacto__feature">
+            <span class="contacto__feature-icon">✓</span>
+            Sin compromiso
+          </div>
+          <div class="contacto__feature">
+            <span class="contacto__feature-icon">✓</span>
+            Diagnóstico real, no venta
+          </div>
+          <div class="contacto__feature">
+            <span class="contacto__feature-icon">✓</span>
+            Respuesta en menos de 24h
+          </div>
+        </div>
+      </div>
+      <div class="contacto__right">
+        <form class="form" id="contactForm" novalidate>
+          <div class="form__group">
+            <label class="form__label" for="nombreEmpresa">Nombre / Empresa</label>
+            <input
+              type="text"
+              id="nombreEmpresa"
+              name="nombre"
+              class="form__input"
+              placeholder="Tu nombre o empresa"
+              required
+            />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="correo">Correo electrónico</label>
+            <input
+              type="email"
+              id="correo"
+              name="email"
+              class="form__input"
+              placeholder="correo@empresa.com"
+              required
+            />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="cuelloBottella">¿Cuál es el mayor cuello de botella de tu negocio hoy?</label>
+            <textarea
+              id="cuelloBottella"
+              name="bottleneck"
+              class="form__textarea"
+              placeholder="Describe el proceso que más tiempo te consume o donde más pierdes dinero..."
+              rows="4"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn--orange btn--full btn--lg" id="submitBtn">
+            Agendar Auditoría Gratuita <span class="btn__arrow">→</span>
+          </button>
+          <p class="form__disclaimer">Al enviar aceptas que nos pongamos en contacto contigo. Sin spam.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="logo.jpg" alt="Trinium" class="footer__logo" />
+        <p class="footer__tagline">Código y automatización sin fricción.</p>
+      </div>
+      <div class="footer__links">
+        <a href="#metodo">Método</a>
+        <a href="#equipo">Equipo</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <p class="footer__copy">© 2026 Trinium. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast">
+    <span class="toast__icon">✓</span>
+    <span class="toast__msg">¡Mensaje enviado! Te contactamos pronto.</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
