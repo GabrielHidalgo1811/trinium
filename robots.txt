@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block unnecessary paths
+Disallow: /sw.js
+
+# Sitemap location
+Sitemap: https://gabrielhidalgo1811.github.io/trinium/sitemap.xml
+
+# Crawl delay (optional, respects server resources)
+Crawl-delay: 10
