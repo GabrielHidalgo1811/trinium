@@ -190,21 +190,20 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Width gives spacing inside the pill, but height stays at 0
-     so the pill height is set only by the text links */
-  width: 72px;
-  height: 0;
-  padding: 0 0.5rem;
+  width: 80px;
+  /* Stretch to the pill's actual height so top:50% on child is correct */
+  align-self: stretch;
   cursor: pointer;
   overflow: visible;
+  flex-shrink: 0;
 }
 .pill-nav__logo-img {
   height: 88px;
   width: auto;
   filter: brightness(0) invert(1);
-  transition: filter 0.4s ease, transform 0.4s ease;
+  transition: filter 0.4s ease;
   display: block;
-  /* Break out of the pill: absolute centered on the container */
+  /* Absolutely centered on the container — breaks out of pill */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -213,10 +212,11 @@ a { text-decoration: none; color: inherit; }
   pointer-events: auto;
 }
 .pill-nav__logo:hover .pill-nav__logo-img {
+  /* Combine translate + scale so the image doesn't jump position */
   filter: brightness(0) invert(1)
           drop-shadow(0 0 8px var(--orange))
           drop-shadow(0 0 20px rgba(255,107,0,0.6));
-  transform: scale(1.12);
+  transform: translate(-50%, -50%) scale(1.08);
 }
 
 /* ── Mobile hamburger ── */
