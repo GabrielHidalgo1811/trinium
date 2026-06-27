@@ -4,15 +4,18 @@
 
 'use strict';
 
+// ─── Reduced motion check ─────────────────
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // ─── Pill Nav: sliding orange bubble ─────────────────
-const track     = document.getElementById('pillTrack');
-const bubble    = document.getElementById('pillBubble');
-const navLinks  = document.querySelectorAll('.pill-nav__link');
+const track    = document.getElementById('pillTrack');
+const bubble   = document.getElementById('pillBubble');
+const navLinks = document.querySelectorAll('.pill-nav__link');
+const pillNav  = document.getElementById('pillNav');
 
-let activeLink  = document.getElementById('pn-inicio');   // default active
-let isHovering  = false;
+let activeLink = document.getElementById('pn-inicio');
+let isHovering = false;
 
-/** Move the bubble to cover a given element */
 function moveBubbleTo(el) {
   if (!el || !track) return;
   const trackRect = track.getBoundingClientRect();
@@ -22,7 +25,6 @@ function moveBubbleTo(el) {
   bubble.classList.add('visible');
 }
 
-/** Set which link is the scroll-active one */
 function setActiveLink(el) {
   navLinks.forEach(l => l.classList.remove('is-active'));
   if (el) {
@@ -32,34 +34,28 @@ function setActiveLink(el) {
   if (!isHovering) moveBubbleTo(activeLink);
 }
 
-// Initial position (defer until layout renders)
 window.addEventListener('load', () => {
   setActiveLink(activeLink);
   moveBubbleTo(activeLink);
 });
 
-// Hover: bubble follows mouse
 navLinks.forEach(link => {
   link.addEventListener('mouseenter', () => {
     isHovering = true;
     moveBubbleTo(link);
-    // While hovering, active link turns white; hovered turns black
-    navLinks.forEach(l => {
-      if (l === link) {
-        l.classList.add('is-active');
-      } else {
-        l.classList.remove('is-active');
-      }
-    });
+    navLinks.forEach(l => l.classList.toggle('is-active', l === link));
   });
 });
 
 track.addEventListener('mouseleave', () => {
   isHovering = false;
-  // Restore bubble to scroll-active link
   navLinks.forEach(l => l.classList.remove('is-active'));
   activeLink.classList.add('is-active');
   moveBubbleTo(activeLink);
+});
+
+window.addEventListener('resize', () => {
+  if (!isHovering) moveBubbleTo(activeLink);
 });
 
 // ─── Scroll: bubble follows active section ─────────────
@@ -72,16 +68,12 @@ const sectionMap = {
 };
 
 const sections = document.querySelectorAll('section[id]');
-
 const sectionObserver = new IntersectionObserver(
-  (entries) => {
+  entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const linkId = sectionMap[entry.target.id];
-        if (linkId) {
-          const el = document.getElementById(linkId);
-          setActiveLink(el);
-        }
+        if (linkId) setActiveLink(document.getElementById(linkId));
       }
     });
   },
@@ -97,41 +89,138 @@ mobileMenu.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => mobileMenu.classList.remove('open'));
 });
 
-// ─── Recalculate bubble on resize ─────────
-window.addEventListener('resize', () => {
-  if (!isHovering) moveBubbleTo(activeLink);
-});
+// ─── Hero: word-by-word reveal ─────────────
+function heroWordReveal() {
+  if (prefersReducedMotion) return;
+  const h1 = document.querySelector('.hero__title');
+  if (!h1) return;
 
-// ─── Intersection Observer: fade-in on scroll ──────────
-const observer = new IntersectionObserver(
-  (entries) => {
+  // Walk text nodes and wrap individual words
+  function wrapWords(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent;
+      if (!text.trim()) return;
+      const words = text.split(/(\s+)/);
+      const frag = document.createDocumentFragment();
+      words.forEach(w => {
+        if (/^\s+$/.test(w)) {
+          frag.appendChild(document.createTextNode(w));
+        } else if (w.length > 0) {
+          const span = document.createElement('span');
+          span.className = 'hero__word';
+          span.textContent = w;
+          frag.appendChild(span);
+        }
+      });
+      node.parentNode.replaceChild(frag, node);
+    } else if (
+      node.nodeType === Node.ELEMENT_NODE &&
+      node.nodeName !== 'SPAN'
+    ) {
+      Array.from(node.childNodes).forEach(wrapWords);
+    }
+  }
+
+  // Wrap all text inside h1 but not inside .hero__title-accent (keep it intact)
+  const accent = h1.querySelector('.hero__title-accent');
+  Array.from(h1.childNodes).forEach(child => {
+    if (child !== accent) wrapWords(child);
+  });
+
+  // Also wrap words inside the accent span
+  if (accent) {
+    const accentText = accent.textContent;
+    const words = accentText.split(/(\s+)/);
+    accent.textContent = '';
+    words.forEach(w => {
+      if (/^\s+$/.test(w)) {
+        accent.appendChild(document.createTextNode(w));
+      } else if (w.length > 0) {
+        const span = document.createElement('span');
+        span.className = 'hero__word';
+        span.style.cssText = 'background:inherit;-webkit-background-clip:inherit;-webkit-text-fill-color:inherit;background-clip:inherit;';
+        span.textContent = w;
+        accent.appendChild(span);
+      }
+    });
+  }
+
+  // Stagger reveal
+  const wordSpans = h1.querySelectorAll('.hero__word');
+  wordSpans.forEach((span, i) => {
+    setTimeout(() => span.classList.add('revealed'), 300 + i * 80);
+  });
+}
+
+heroWordReveal();
+
+// ─── Animated counters (stats) ────────────
+function animateCounter(el, target, suffix, duration) {
+  if (prefersReducedMotion) return;
+  if (target === 0) return; // 0 stays as is
+  const start = performance.now();
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease out cubic
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(target * eased) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target + suffix;
+  }
+  requestAnimationFrame(step);
+}
+
+const statsSection = document.querySelector('.hero__stats');
+if (statsSection) {
+  const counterObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity   = '1';
-        entry.target.style.transform = 'translateY(0)';
-        observer.unobserve(entry.target);
+        document.querySelectorAll('.hero__stat-num[data-count]').forEach(el => {
+          const target = parseInt(el.dataset.count, 10);
+          const suffix = el.dataset.suffix || '';
+          if (target > 0) animateCounter(el, target, suffix, 1200);
+        });
+        counterObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+  counterObserver.observe(statsSection);
+}
+
+// ─── Scroll reveal: general ────────────────
+const scrollRevealObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        scrollRevealObserver.unobserve(entry.target);
       }
     });
   },
-  { threshold: 0.15 }
+  { threshold: 0.12 }
 );
 
+// Método steps: slide in from left with stagger
 document.querySelectorAll('.metodo__step').forEach((step, i) => {
-  step.style.opacity    = '0';
-  step.style.transform  = 'translateY(24px)';
-  step.style.transition = `opacity 0.6s ease ${i * 0.15}s, transform 0.6s ease ${i * 0.15}s`;
-  observer.observe(step);
+  step.classList.add('js-reveal-x');
+  step.style.transitionDelay = `${i * 120}ms`;
+  scrollRevealObserver.observe(step);
 });
 
+// Team cards: scale in with stagger
 document.querySelectorAll('.team-card').forEach((card, i) => {
-  card.style.opacity    = '0';
-  card.style.transform  = 'translateY(32px)';
-  card.style.transition = `opacity 0.6s ease ${i * 0.12}s, transform 0.6s ease ${i * 0.12}s, border-color 0.3s ease, box-shadow 0.3s ease`;
-  observer.observe(card);
+  card.classList.add('js-scale');
+  card.style.transitionDelay = `${i * 100}ms`;
+  scrollRevealObserver.observe(card);
 });
 
-document.querySelectorAll('.hero__title, .hero__sub, .hero__cta-row, .hero__stats').forEach((el, i) => {
-  el.classList.add('fade-in', `fade-in-${i + 1}`);
+// Section headers: fade up
+document.querySelectorAll(
+  '.equipo__header, .metodo__left, .contacto__left, .trusted__label'
+).forEach(el => {
+  el.classList.add('js-reveal');
+  scrollRevealObserver.observe(el);
 });
 
 // ─── Form submit ──────────────────────────
@@ -149,7 +238,7 @@ function validateField(f) {
   return ok;
 }
 
-contactForm.addEventListener('submit', (e) => {
+contactForm.addEventListener('submit', e => {
   e.preventDefault();
   const nombre = document.getElementById('nombreEmpresa');
   const correo = document.getElementById('correo');
@@ -175,24 +264,3 @@ document.querySelectorAll('.form__input, .form__textarea').forEach(f => {
 const spinStyle = document.createElement('style');
 spinStyle.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
 document.head.appendChild(spinStyle);
-
-// ─── Parallax: hero glow follows mouse ───
-const heroGlow = document.querySelector('.hero__glow');
-document.addEventListener('mousemove', (e) => {
-  if (!heroGlow) return;
-  const x = (e.clientX / window.innerWidth  - 0.5) * 40;
-  const y = (e.clientY / window.innerHeight - 0.5) * 20;
-  heroGlow.style.transform = `translateX(calc(-50% + ${x}px)) translateY(${y}px)`;
-});
-
-// ─── Team card 3D tilt ─────────────────────
-document.querySelectorAll('.team-card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x    = ((e.clientX - rect.left) / rect.width  - 0.5) * 10;
-    const y    = ((e.clientY - rect.top)  / rect.height - 0.5) * -10;
-    card.style.transform   = `translateY(-8px) rotateX(${y}deg) rotateY(${x}deg)`;
-    card.style.perspective = '800px';
-  });
-  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-});
